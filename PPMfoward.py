@@ -111,11 +111,10 @@ class simulator_1D:
         comp_wave = self.__range_compress__(reflection_wave_spectrum, self.mf_signal_spectrum, self.window) 
       
         ridx = np.insert(ridx, 0, 0)  # add surface reflection idex
-        return ridx + len(np.abs(comp_wave))//2, comp_wave
+        return ridx + len(np.abs(comp_wave))//2 - 1, comp_wave
  
 
     def __range_compress__(self, data, mfilter, window):
-
         out = data * mfilter * window
         out = np.concatenate([out, np.zeros(self.nf, dtype=complex)])
         return np.fft.fftshift(np.fft.ifft(out))
